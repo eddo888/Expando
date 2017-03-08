@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Expando</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/expando.css"></link>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="js/expando.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      
+      $(document).ready(function() {
+
+          var obj = {
+              'parent' : {
+                  'child': [
+                      'grandchild'
+                  ],
+                  'cousin' : 'removed',
+                  'likey' : true,
+                  'counter' : 3,
+                  'floater' : 5.6
+                  
+              }
+          };
+          
+          $('#mygoodies').expando(obj);
+
+      });
+
+    </script>
+  </head>
+  <body>
+    <div id="mygoodies"></div.
+  </body>
+</html>
+    
