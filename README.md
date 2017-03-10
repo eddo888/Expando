@@ -23,6 +23,8 @@ you can view an object like an expanding tree with expando.
       });
 ```
 
+___
+
 and define the target
 
 ```html
@@ -30,10 +32,10 @@ and define the target
     <div id="mygoodies"></div.
   </body>
 ```
+___
 
-which would look like
+which would look like this interactive iframe below
 
 
-![Expando](expando.png)
+<iframe width="200" height="200" src="https://eddo888.github.io/Expando/index.html"></iframe>
 
-[Try Me !](https://eddo888.github.io/Expando/index.html)
