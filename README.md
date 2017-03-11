@@ -36,6 +36,7 @@ ___
 
 which would look like this interactive iframe below
 
+![expando](expando.png)
 
-<iframe width="200" height="200" src="https://eddo888.github.io/Expando/index.html"></iframe>
+[Try Me !](https://eddo888.github.io/Expando/index.html)
 
