@@ -29,7 +29,7 @@ and define the target
 
 ```html
   <body>
-    <div id="mygoodies"></div.
+    <div id="mygoodies"></div>
   </body>
 ```
 ___
