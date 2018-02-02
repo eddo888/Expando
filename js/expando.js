@@ -5,6 +5,9 @@ $.fn.extend({
             var table = $('<table/>').appendTo($(this));
             
             $.each(node,function(name, child) {
+                if (_.isFunction(child)) {
+                    return;
+                }
                 var tr = $('<tr/>')
                     .appendTo(table)
                 ;
@@ -30,6 +33,10 @@ $.fn.extend({
                 
                 if (_.isArray(child)) {
                     $('<span/>').text('['+child.length+']').appendTo(td);
+                }
+                
+                if (_.isFunction(child)) {
+                    $('<span/>').text('()').appendTo(td);
                 }
                 
                 tr = $('<tr/>').appendTo(table);
