@@ -8,6 +8,9 @@
     <link rel="stylesheet" type="text/css" href="css/expando.css"></link>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
+    <style type="text/css">
+    textarea { border: none; }
+</style>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -96,7 +99,6 @@
         $('#data-type-json').change(function(){
             reload_expando();
         });
-         
         $('#data-type-xml').change(function(){
             reload_expando();
         });
@@ -155,7 +157,7 @@
     <fieldset>
     <legend>Dignostics</legend>
         <p id="when"></p>
-    <p id="checked"></p>
+        <p id="checked"></p>
     </fieldset>
 
     </div>
