@@ -1,11 +1,11 @@
 
 $.fn.extend({
-    expando: function(node) {
+    expando: function(node, ignoreFunctions) {
         return $(this).each(function() {
             var table = $('<table/>').appendTo($(this));
             
             $.each(node,function(name, child) {
-                if (_.isFunction(child)) {
+                if (ignoreFunctions && _.isFunction(child)) {
                     return;
                 }
                 var tr = $('<tr/>')
@@ -59,7 +59,7 @@ $.fn.extend({
                 });
                 
                 if (_.isObject(child)) {
-                    $(div).expando(child);
+                    $(div).expando(child, ignoreFunctions);
                 }
                 
             });

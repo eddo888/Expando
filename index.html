@@ -3,27 +3,53 @@
   <head>
     <title>Expando</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">   
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" type="text/css" href="css/expando.css"></link>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
     <script src="js/marknote-debug.js" type="text/javascript"></script>
     <script src="js/expando.js" type="text/javascript"></script>
     <script type="text/javascript">
+    
+    var doc = null;
+              
+      function reload_expando(){
+         var checked = $('#ignore-functions-1').is(":checked");
+         $('#mygoodies').find('*').remove();
+         $('#mygoodies').expando(doc,checked);
+         $('#when').text(new Date());
+         $('#checked').text(checked);
+      }
       
       $(document).ready(function() {
-      
+        $('input').checkboxradio();
+        $('#ignore-functions-1').change(reload_expando);
+        $('#diagnostics').hide();
+        $('#diagnostics-1').change(function(){
+            if ($(this).is(':checked')) {
+                $('#diagnostics').show();
+            } 
+            else {
+                $('#diagnostics').hide();
+            }
+        });
+         
           var xml=`\
-                <root attr='val'>
-                    <child1>text1</child1>
-                    <!-- you cant see me -->
-                    <child2>text2<child2>
-                </root>
-                `
-          ;
+<?xml version="1.0" encoding="UTF-8"?>
+<eddo:root xmlns:eddo="ns:eddo" attr='val'>
+    <child1>text1</child1>
+    <!-- you cant see me -->
+    <child2>text2<child2>
+</eddo:root>
+`;
                 
           var parser = new marknote.Parser();
-            
-          var doc = parser.parse(xml);
+          doc = parser.parse(xml);
     
           var obj = {
               'parent' : {
@@ -38,14 +64,38 @@
               }
           };
           
-          $('#mygoodies').expando(doc);
+          reload_expando();
+ 
 
       });
 
     </script>
   </head>
   <body>
-    <div id="mygoodies"></div.
+  <div>
+<h2>Checkbox</h2>
+  <fieldset>
+    <legend>Options: </legend>
+    <label for="ignore-functions-1">Ignore Functions</label>
+    <input type="checkbox" name="ignore-functions-1" id="ignore-functions-1">
+        <label for="diagnostics-1">Diagnostics</label>
+    <input type="checkbox" name="diagnostics-1" id="diagnostics-1">
+    
+  </fieldset>
+ </div>
+ <fieldset>
+ <legend>Expando</legend>
+   <div id="mygoodies"></div>
+ </fieldset>
+  
+    <div id="diagnostics">
+    <fieldset>
+    <legend>Dignostics</legend>
+        <p id="when"></p>
+    <p id="checked"></p>
+    </fieldset>
+
+    </div>
   </body>
 </html>
     
