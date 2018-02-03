@@ -16,30 +16,8 @@
     <script src="js/expando.js" type="text/javascript"></script>
     <script type="text/javascript">
     
-    var doc = null;
-              
-      function reload_expando(){
-         var checked = $('#ignore-functions-1').is(":checked");
-         $('#mygoodies').find('*').remove();
-         $('#mygoodies').expando(doc,checked);
-         $('#when').text(new Date());
-         $('#checked').text(checked);
-      }
-      
-      $(document).ready(function() {
-        $('input').checkboxradio();
-        $('#ignore-functions-1').change(reload_expando);
-        $('#diagnostics').hide();
-        $('#diagnostics-1').change(function(){
-            if ($(this).is(':checked')) {
-                $('#diagnostics').show();
-            } 
-            else {
-                $('#diagnostics').hide();
-            }
-        });
-         
-          var xml=`\
+    
+        var xml=`\
 <?xml version="1.0" encoding="UTF-8"?>
 <eddo:root xmlns:eddo="ns:eddo" attr='val'>
     <child1>text1</child1>
@@ -49,9 +27,9 @@
 `;
                 
           var parser = new marknote.Parser();
-          doc = parser.parse(xml);
+          var doc = parser.parse(xml);
     
-          var obj = {
+          var json = {
               'parent' : {
                   'child': [
                       'grandchild'
@@ -63,30 +41,115 @@
                   
               }
           };
+              
+          var obj = doc;
           
-          reload_expando();
- 
+      function reload_expando(){
+      
+            if ($('#data-type-json').is(':checked')) {
+                $('#source').val(JSON.stringify(json,null,4));
+                    obj = json;
+            } 
+            
+            if ($('#data-type-xml').is(':checked'))  {
+                $('#source').val(xml);
+                obj = doc;
+            }
+            
+         var checked = $('#ignore-functions-1').is(":checked");
+         $('#mygoodies').find('*').remove();
+         $('#mygoodies').expando(obj,checked);
+         $('#when').text(new Date());
+         $('#checked').text(checked);
+         
+      }
+      
+      function reload_source(){
+         if ($('#data-type-json').is(':checked')) {
+             json = JSON.parse($('#source').val());
+            
+         } 
+            
+            if ($('#data-type-xml').is(':checked')) {
+                xml = $('#source').val();
+                doc = parser.parse(xml);
+            }
+            reload_expando();
+            
+    }
+            
+      $(document).ready(function() {
+        $('input').checkboxradio();
+        $('#ignore-functions-1')
+            .change(reload_expando);
+        
+        $('#diagnostics').hide();
+        $('#diagnostics-1').change(function(){
+            if ($(this).is(':checked')) {
+                $('#diagnostics').show();
+            } 
+            else {
+                $('#diagnostics').hide();
+            }
+        });
+              
+        $('#data-type-json').change(function(){
+            reload_expando();
+        });
+         
+        $('#data-type-xml').change(function(){
+            reload_expando();
+        });
+        
+        $('#source')
+            .val(xml)
+            .width('100%')
+            .height(150)
+            .change(reload_source)
+            .mouseleave(reload_source)
+        ;
+         
+         reload_expando();
 
       });
 
     </script>
   </head>
   <body>
+  
   <div>
-<h2>Checkbox</h2>
   <fieldset>
     <legend>Options: </legend>
     <label for="ignore-functions-1">Ignore Functions</label>
     <input type="checkbox" name="ignore-functions-1" id="ignore-functions-1">
-        <label for="diagnostics-1">Diagnostics</label>
+    <label for="diagnostics-1">Diagnostics</label>
     <input type="checkbox" name="diagnostics-1" id="diagnostics-1">
-    
   </fieldset>
- </div>
+  </div>
+ 
+ <div>  
  <fieldset>
- <legend>Expando</legend>
+    <legend>Data Type: </legend>
+    <label for="data-type-json">JSON</label>
+    <input type="radio" name="data-type-1" id="data-type-json">
+    <label for="data-type-xml">XML</label>
+    <input type="radio" name="data-type-1" id="data-type-xml">
+  </fieldset>
+  </div>
+  
+  <div>
+   <fieldset>
+   <legend>Source</legend>
+   <textarea id='source'></textarea>
+ </fieldset>
+ </div>
+ 
+ <div>
+ <fieldset>
+   <legend>Expando</legend>
    <div id="mygoodies"></div>
  </fieldset>
+  </div>
   
     <div id="diagnostics">
     <fieldset>
@@ -96,6 +159,7 @@
     </fieldset>
 
     </div>
+    
   </body>
 </html>
     
