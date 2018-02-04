@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">   
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" type="text/css" href="css/expando.css"></link>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <style type="text/css">
-      textarea { border: none; }
+textarea {
+    border: none;
+    width: 100%;
+    height: 100px;
+    overflow-y: scroll;
+    resize: none;
+}
     </style>
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -105,11 +112,11 @@ $(document).ready(function() {
     
     $('#source')
         .val(xml)
-        .width('100%')
-        .height(150)
         .change(reload_source)
         .mouseleave(reload_source)
     ;
+
+    $('#parse').button().click(reload_source);
     
     reload_expando();
 
@@ -123,7 +130,7 @@ $(document).ready(function() {
       <fieldset>
         <legend>Options: </legend>
         <label for="ignore-functions-1">Ignore Functions</label>
-        <input type="checkbox" name="ignore-functions-1" id="ignore-functions-1">
+        <input type="checkbox" name="ignore-functions-1" id="ignore-functions-1" checked="true">
         <label for="diagnostics-1">Diagnostics</label>
         <input type="checkbox" name="diagnostics-1" id="diagnostics-1">
       </fieldset>
@@ -135,7 +142,7 @@ $(document).ready(function() {
         <label for="data-type-json">JSON</label>
         <input type="radio" name="data-type-1" id="data-type-json">
         <label for="data-type-xml">XML</label>
-        <input type="radio" name="data-type-1" id="data-type-xml">
+        <input type="radio" name="data-type-1" id="data-type-xml" checked="true">
       </fieldset>
     </div>
     
@@ -143,6 +150,7 @@ $(document).ready(function() {
       <fieldset>
         <legend>Source</legend>
         <textarea id='source'></textarea>
+        <button id="parse">Parse</button>
       </fieldset>
     </div>
     
