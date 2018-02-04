@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <style type="text/css">
-    textarea { border: none; }
+    textarea { 
+        border: none; 
+        overflow-y: scroll;
+        height: 100px;
+        resize: none; /* Remove this if you want the user to resize the textarea */
+    }
 </style>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -28,7 +33,9 @@
     <child2>text2<child2>
 </eddo:root>
 `;
-                
+        
+         //xml = '<eddo atr="xyz"/>';
+          
           var parser = new marknote.Parser();
           var doc = parser.parse(xml);
     
@@ -103,10 +110,12 @@
             reload_expando();
         });
         
+        $( "#parse").button().click(reload_source);
+    
         $('#source')
             .val(xml)
             .width('100%')
-            .height(150)
+            .height(100)
             .change(reload_source)
             .mouseleave(reload_source)
         ;
@@ -123,7 +132,7 @@
   <fieldset>
     <legend>Options: </legend>
     <label for="ignore-functions-1">Ignore Functions</label>
-    <input type="checkbox" name="ignore-functions-1" id="ignore-functions-1">
+    <input type="checkbox" name="ignore-functions-1" id="ignore-functions-1" checked="true">
     <label for="diagnostics-1">Diagnostics</label>
     <input type="checkbox" name="diagnostics-1" id="diagnostics-1">
   </fieldset>
@@ -135,14 +144,15 @@
     <label for="data-type-json">JSON</label>
     <input type="radio" name="data-type-1" id="data-type-json">
     <label for="data-type-xml">XML</label>
-    <input type="radio" name="data-type-1" id="data-type-xml">
+    <input type="radio" name="data-type-1" id="data-type-xml" checked="true">
   </fieldset>
   </div>
-  
+ 
   <div>
    <fieldset>
    <legend>Source</legend>
    <textarea id='source'></textarea>
+   <button id="parse">Parse</button>
  </fieldset>
  </div>
  
@@ -155,9 +165,15 @@
   
     <div id="diagnostics">
     <fieldset>
-    <legend>Dignostics</legend>
-        <p id="when"></p>
-        <p id="checked"></p>
+    <legend>Diagnostics</legend>
+        <p>
+          <span class="property_name">When: </span>
+          <span class="property_value" id="when"/>
+        </p>
+        <p>
+          <span class="property_name">Functions: </span>
+          <span class="property_value" id="checked"/>
+        </p>
     </fieldset>
 
     </div>
