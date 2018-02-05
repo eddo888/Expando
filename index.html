@@ -22,12 +22,13 @@ textarea {
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
-    <!-- script src="js/marknote-debug.js" type="text/javascript"></script -->
-    <script src="js/from-xml.js" type="text/javascript"></script>
+    
+    <script src="https://rawgit.com/kawanet/from-xml/master/dist/from-xml.min.js"></script>
+    <script src="https://rawgit.com/kawanet/to-xml/master/dist/to-xml.min.js"></script>
+  
     <script src="js/expando.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-    
 
 var xml=`\
 <?xml version="1.0" encoding="UTF-8"?>
@@ -40,56 +41,51 @@ var xml=`\
 
 var doc = fromXML(xml);
 
-var json = {
-    'parent' : {
-        'child': [
-            'grandchild'
-        ],
-        'cousin' : 'removed',
-        'likey' : true,
-        'counter' : 3,
-        'floater' : 5.6
-        
-    }
-};
+var json = doc;
 
 var obj = doc;
 
 function reload_expando(){
-    
     if ($('#data-type-json').is(':checked')) {
         $('#source').val(JSON.stringify(json,null,4));
         obj = json;
     } 
-    
     if ($('#data-type-xml').is(':checked'))  {
         $('#source').val(xml);
         obj = doc;
     }
-    
     var checked = $('#ignore-functions-1').is(":checked");
     $('#mygoodies').find('*').remove();
     $('#mygoodies').expando(obj,checked);
     var now = new Date();
     $('#when').text(now.toISOString().replace("T"," ").replace("Z",""));
-    //console.log(now);
-    //.format("yyyy-mm-dd HH:MM:SS"));
     $('#checked').text(checked);
-    
 }
 
 function reload_source(){
     if ($('#data-type-json').is(':checked')) {
         json = JSON.parse($('#source').val());
-        
     } 
-    
     if ($('#data-type-xml').is(':checked')) {
         xml = $('#source').val();
         doc = fromXML(xml);
     }
     reload_expando();
-    
+}
+
+function convert_source(){
+    if ($('#data-type-json').is(':checked')) {
+        json = JSON.parse($('#source').val());
+        xml = toXML(json, null, 4);
+        doc = fromXML(xml);
+        $('#data-type-xml').click();
+    } 
+    if ($('#data-type-xml').is(':checked')) {
+        xml = $('#source').val();
+        doc = fromXML(xml);
+        json = doc;
+        $('#data-type-json').click();
+    }
 }
 
 $(document).ready(function() {
@@ -122,6 +118,8 @@ $(document).ready(function() {
 
     $('#parse').button().click(reload_source);
     
+    $('#convert').button().click(convert_source);
+
     reload_expando();
 
 });
@@ -155,6 +153,7 @@ $(document).ready(function() {
         <legend>Source</legend>
         <textarea id='source'></textarea>
         <button id="parse">Parse</button>
+        <button id="convert">Convert</button>
       </fieldset>
     </div>
     
