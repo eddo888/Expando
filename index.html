@@ -22,8 +22,10 @@ textarea {
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
-    <script src="js/marknote-debug.js" type="text/javascript"></script>
+    <!-- script src="js/marknote-debug.js" type="text/javascript"></script -->
+    <script src="js/from-xml.js" type="text/javascript"></script>
     <script src="js/expando.js" type="text/javascript"></script>
+
     <script type="text/javascript">
     
 
@@ -36,8 +38,7 @@ var xml=`\
 </eddo:root>
 `;
 
-var parser = new marknote.Parser();
-var doc = parser.parse(xml);
+var doc = fromXML(xml);
 
 var json = {
     'parent' : {
@@ -85,7 +86,7 @@ function reload_source(){
     
     if ($('#data-type-xml').is(':checked')) {
         xml = $('#source').val();
-        doc = parser.parse(xml);
+        doc = fromXML(xml);
     }
     reload_expando();
     
