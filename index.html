@@ -10,7 +10,7 @@
 
     <style type="text/css">
 textarea {
-    border: none;
+    #border: none;
     width: 100%;
     height: 100px;
     overflow-y: scroll;
@@ -69,7 +69,10 @@ function reload_expando(){
     var checked = $('#ignore-functions-1').is(":checked");
     $('#mygoodies').find('*').remove();
     $('#mygoodies').expando(obj,checked);
-    $('#when').text(new Date());
+    var now = new Date();
+    $('#when').text(now.toISOString().replace("T"," ").replace("Z",""));
+    //console.log(now);
+    //.format("yyyy-mm-dd HH:MM:SS"));
     $('#checked').text(checked);
     
 }
