@@ -4,7 +4,7 @@ var xml=`\
 <eddo:root xmlns:eddo="ns:eddo" attr='val'>
     <child1>text1</child1>
     <!-- you cant see me -->
-    <child2>text2<child2>
+    <child2>text2</child2>
 </eddo:root>
 `;
 
