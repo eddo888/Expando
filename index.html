@@ -35,20 +35,20 @@ textarea {
     <div>
       <fieldset>
         <legend>Options: </legend>
-        <label for="ignore-functions-1">Ignore Functions</label>
-        <input type="checkbox" name="ignore-functions-1" id="ignore-functions-1" checked="true">
-        <label for="diagnostics-1">Diagnostics</label>
-        <input type="checkbox" name="diagnostics-1" id="diagnostics-1">
+        <label for="igfunchk">Ignore Functions</label>
+        <input type="checkbox" name="igfunchk" id="igfunchk" checked="true">
+        <label for="diagchk">Diagnostics</label>
+        <input type="checkbox" name="diagchk" id="diagchk">
       </fieldset>
     </div>
     
     <div>  
       <fieldset>
         <legend>Data Type: </legend>
-        <label for="data-type-json">JSON</label>
-        <input type="radio" name="data-type-1" id="data-type-json">
-        <label for="data-type-xml">XML</label>
-        <input type="radio" name="data-type-1" id="data-type-xml" checked="true">
+        <label for="is-json">JSON</label>
+        <input type="radio" name="is-1" id="is-json">
+        <label for="is-xml">XML</label>
+        <input type="radio" name="is-1" id="is-xml" checked="true">
       </fieldset>
     </div>
     
@@ -57,7 +57,7 @@ textarea {
         <legend>Source</legend>
         <textarea id='source'></textarea>
         <button id="parse">Parse</button>
-        <button id="convert">Convert</button>
+        <button id="unparse">Unparse</button>
       </fieldset>
     </div>
     
@@ -77,7 +77,7 @@ textarea {
         </p>
         <p>
           <span class="property_name">Functions: </span>
-          <apan class="property_value" id="checked"></span>
+          <apan class="property_value" id="igfun"></span>
         </p>
       </fieldset>
 

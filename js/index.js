@@ -1,4 +1,3 @@
-
 var xml=`\
 <?xml version="1.0" encoding="UTF-8"?>
 <eddo:root xmlns:eddo="ns:eddo" attr='val'>
@@ -8,62 +7,44 @@ var xml=`\
 </eddo:root>
 `;
 
-var doc = fromXML(xml);
+var obj = null;
 
-var json = doc;
-
-var obj = doc;
-
-function reload_expando(){
-    if ($('#data-type-json').is(':checked')) {
-        $('#source').val(JSON.stringify(json,null,4));
-        obj = json;
-    } 
-    if ($('#data-type-xml').is(':checked'))  {
-        $('#source').val(xml);
-        obj = doc;
-    }
-    var checked = $('#ignore-functions-1').is(":checked");
+function reload(){
+    var igfun = $('#igfunchk').is(":checked");
     $('#mygoodies').find('*').remove();
-    $('#mygoodies').expando(obj,checked);
+    $('#mygoodies').expando(obj,igfun);
     var now = new Date();
     $('#when').text(now.toISOString().replace("T"," ").replace("Z",""));
-    $('#checked').text(checked);
+    $('#igfun').text(igfun);
 }
 
-function reload_source(){
-    if ($('#data-type-json').is(':checked')) {
-        json = JSON.parse($('#source').val());
+function parse(){
+    if ($('#is-json').is(':checked')) {
+        obj = JSON.parse($('#source').val());
     } 
-    if ($('#data-type-xml').is(':checked')) {
-        xml = $('#source').val();
-        doc = fromXML(xml);
+    if ($('#is-xml').is(':checked')) {
+        obj = fromXML($('#source').val());
     }
-    reload_expando();
+    reload();
 }
 
-function convert_source(){
-    if ($('#data-type-json').is(':checked')) {
-        json = JSON.parse($('#source').val());
-        xml = toXML(json, null, 4);
-        doc = fromXML(xml);
-        $('#data-type-xml').click();
+function unparse(){
+    if ($('#is-json').is(':checked')) {
+        $('#source').val(JSON.stringify(obj,null,4));
     } 
-    if ($('#data-type-xml').is(':checked')) {
-        xml = $('#source').val();
-        doc = fromXML(xml);
-        json = doc;
-        $('#data-type-json').click();
+    if ($('#is-xml').is(':checked')) {
+        $('#source').val(toXML(obj,null,4));
     }
 }
 
 $(document).ready(function() {
+
     $('input').checkboxradio();
-    $('#ignore-functions-1')
-        .change(reload_expando);
+    
+    $('#igfunchk').change(reload);
     
     $('#diagnostics').hide();
-    $('#diagnostics-1').change(function(){
+    $('#diagchk').change(function(){
         if ($(this).is(':checked')) {
             $('#diagnostics').show();
         } 
@@ -71,25 +52,15 @@ $(document).ready(function() {
             $('#diagnostics').hide();
         }
     });
-    
-    $('#data-type-json').change(function(){
-        reload_expando();
-    });
-    $('#data-type-xml').change(function(){
-        reload_expando();
-    });
-    
-    $('#source')
-        .val(xml)
-        .change(reload_source)
-        .mouseleave(reload_source)
-    ;
 
-    $('#parse').button().click(reload_source);
+    $('#parse').button().click(parse);
+    $('#unparse').button().click(unparse);
     
-    $('#convert').button().click(convert_source);
-
-    reload_expando();
+    $('#source').val(xml);
+    parse();
+    
+    $('#is-json').change(unparse);
+    $('#is-xml').change(unparse);
 
 });
 
