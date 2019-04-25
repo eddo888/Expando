@@ -1,6 +1,26 @@
 
 $.fn.extend({
-    expando: function(node, ignoreFunctions) {
+    expando: function(node, ignoreFunctions, traveled) {
+        if (!traveled) traveled = [];
+        if (_.contains(traveled,node)) return;
+        traveled.push(node);
+      
+        if (!_.isObject(node)) {
+          return $(this).append(
+            $('<table>')
+              .append(
+                $('<tr>')
+                  .append(
+                    $('<td>')
+                      .append($('<span>')
+                      .addClass('property_value')
+                      .text(node)
+                      )
+                  )
+              )
+          );
+        }
+      
         return $(this).each(function() {
             var table = $('<table/>').appendTo($(this));
             
@@ -59,7 +79,7 @@ $.fn.extend({
                 });
                 
                 if (_.isObject(child)) {
-                    $(div).expando(child, ignoreFunctions);
+                    $(div).expando(child, ignoreFunctions, traveled);
                 }
                 
             });
