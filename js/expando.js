@@ -36,10 +36,10 @@ $.fn.extend({
 
                 var img;
                 if (_.isObject(child)) {
-                    img = $('<img/>').attr('src','image/expandoClosed.png').appendTo(td);
+                    img = $('<img/>').attr('src','https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoClosed.png').appendTo(td);
                 }
                 else {
-                    img = $('<img/>').attr('src','image/property.png').appendTo(td);
+                    img = $('<img/>').attr('src','https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/property.png').appendTo(td);
                 }
 
                 var td = $('<td/>').appendTo(tr);
@@ -71,10 +71,10 @@ $.fn.extend({
                 $(img).click(function() {
                     $(div).toggle();
                     if ($(div).is(':visible')) {
-                        $(img).attr('src','image/expandoOpen.png')
+                        $(img).attr('src','https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoOpen.png')
                     }
                     else {
-                        $(img).attr('src','image/expandoClosed.png')
+                        $(img).attr('src','https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoClosed.png')
                     }
                 });
                 
