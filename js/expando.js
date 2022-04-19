@@ -1,3 +1,8 @@
+const image_closed = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoClosed.png';
+const image_open = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoOpen.png';
+const image_property = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/property.png';
+const image_todo = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/taskTodoIncomplete.png';
+const image_done = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/taskTodoComplete.png';
 
 $.fn.extend({
     expando: function(node, ignoreFunctions, traveled) {
@@ -12,9 +17,9 @@ $.fn.extend({
                 $('<tr>')
                   .append(
                     $('<td>')
-                      .append($('<span>')
+                      .append($('<input>')
                       .addClass('property_value')
-                      .text(node)
+                      .val(node)
                       )
                   )
               )
@@ -36,19 +41,27 @@ $.fn.extend({
 
                 var img;
                 if (_.isObject(child)) {
-                    img = $('<img/>').attr('src','https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoClosed.png').appendTo(td);
+                    img = $('<img/>')
+                    	.attr('src',image_closed)
+                    	.appendTo(td)
+                    ;
                 }
                 else {
-                    img = $('<img/>').attr('src','https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/property.png').appendTo(td);
+                    img = $('<img/>')
+                    	.attr('src', image_todo)
+                    	.appendTo(td)
+                    ;
                 }
 
                 var td = $('<td/>').appendTo(tr);
 
-                var a = $('<span/>').addClass('property_name').append($('<stong>').text(name)).appendTo(td);
+                var a = $('<span/>').addClass('property_name').append(
+                	$('<span>').text(name)
+                ).appendTo(td);
                 
                 if (! _.isObject(child)) {
-                    $('<span/>').text(': ').appendTo(td);
-                    $('<span/>').addClass('property_value').text(child).appendTo(td);
+                    $('<span/>').val(': ').appendTo(td);
+                    $('<input/>').addClass('property_value').val(child).appendTo(td);
                 }
                 
                 if (_.isArray(child)) {
@@ -69,12 +82,22 @@ $.fn.extend({
                 $(div).hide();
 
                 $(img).click(function() {
-                    $(div).toggle();
-                    if ($(div).is(':visible')) {
-                        $(img).attr('src','https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoOpen.png')
+                	if ($(div).find('tr').length > 1) {
+	                    $(div).toggle();
+	                    if ($(div).is(':visible')) {
+	                        $(img).attr('src', image_open)
+	                    }
+	                    else {
+	                        $(img).attr('src', image_closed)
+	                    }
                     }
                     else {
-                        $(img).attr('src','https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoClosed.png')
+                    	if ($(img).attr('src') == image_done) {
+	                        $(img).attr('src', image_todo)
+	                    }
+	                    else {
+	                        $(img).attr('src', image_done)
+	                    }
                     }
                 });
                 
