@@ -2,12 +2,14 @@
 	color: purple;
 	font-size: 14px;
 	font-family: Arial;
+	height: 12px;
 }
 .property_value {
 	color: red;
 	border: 0;
 	font-size: 14px;
 	font-family: Arial;
-	width: 200px;
+	width: 400px;
+	height: 12px;
 }
 

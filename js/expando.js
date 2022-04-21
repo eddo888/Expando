@@ -1,6 +1,7 @@
 const image_closed = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoClosed.png';
 const image_open = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoOpen.png';
 const image_property = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/property.png';
+const image_dot = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/task0.png';
 const image_todo = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/taskTodoIncomplete.png';
 const image_done = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/taskTodoComplete.png';
 
