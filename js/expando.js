@@ -70,6 +70,7 @@ $.fn.extend({
 					.appendTo(tr)
 				;
 
+				
                 var a = $('<span/>')
 					.addClass('property_name')
 					.append(
