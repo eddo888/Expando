@@ -12,33 +12,44 @@ $.fn.extend({
         traveled.push(node);
       
         if (!_.isObject(node)) {
-          return $(this).append(
-            $('<table>')
-              .append(
-                $('<tr>')
-                  .append(
-                    $('<td>')
-                      .append($('<input>')
-                      .addClass('property_value')
-                      .val(node)
-                      )
-                  )
-              )
-          );
+            return $(this).append(
+            	$('<table>')
+					.addClass('property_table')
+              		.append(
+		                $('<tr>')
+							.addClass('property_tr')
+		                    .append(
+		                    	$('<td>')
+							  		.addClass('property_td')
+		                      		.append(
+							  	  		$('<textarea>')
+		                      	  	  		.addClass('property_value')
+		                      	  	  		.val(node)
+		                      		)
+		                  	)
+              		)
+            );
         }
       
         return $(this).each(function() {
-            var table = $('<table/>').appendTo($(this));
+            var table = $('<table/>')
+				.addClass('property_table')
+				.appendTo($(this))
+			;
             
             $.each(node,function(name, child) {
                 if (ignoreFunctions && _.isFunction(child)) {
                     return;
                 }
                 var tr = $('<tr/>')
+					.addClass('property_tr')
                     .appendTo(table)
                 ;
                 
-                var td = $('<td/>').attr('valign','top').appendTo(tr);
+                var td = $('<td/>')
+					.attr('valign','top')
+					.appendTo(tr)
+				;
 
                 var img;
                 if (_.isObject(child)) {
@@ -54,19 +65,32 @@ $.fn.extend({
                     ;
                 }
 
-                var td = $('<td/>').appendTo(tr);
+                var td = $('<td/>')
+					.addClass('property_td')
+					.appendTo(tr)
+				;
 
-                var a = $('<span/>').addClass('property_name').append(
-                	$('<span>').text(name)
-                ).appendTo(td);
+                var a = $('<span/>')
+					.addClass('property_name')
+					.append(
+                		$('<span>').text(name)
+               	 	).appendTo(td)
+				;
                 
                 if (! _.isObject(child)) {
                     $('<span/>').val(': ').appendTo(td);
-                    $('<input/>').addClass('property_value').val(child).appendTo(td);
+                    $('<input/>')
+						.addClass('property_value')
+						.val(child)
+						.appendTo(td)
+					;
                 }
                 
                 if (_.isArray(child)) {
-                    $('<span/>').text('['+child.length+']').appendTo(td);
+                    $('<span/>')
+						.text('['+child.length+']')
+						.appendTo(td)
+					;
                 }
                 
                 if (_.isFunction(child)) {
@@ -77,7 +101,13 @@ $.fn.extend({
                 $('<td/>').appendTo(tr);
                 
                 var div = $('<div/>')
-                    .addClass('opml').appendTo($('<td/>').attr('valign','bottom').appendTo(tr));
+                    .addClass('opml')
+					.appendTo(
+						$('<td/>')
+							.attr('valign','bottom')
+							.appendTo(tr)
+					)
+				;
 
                 // start closed
                 $(div).hide();
