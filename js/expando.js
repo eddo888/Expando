@@ -63,7 +63,7 @@ $.fn.extend({
 	                var img;
 	                if (_.isObject(child)) {
 	                    img = $('<img/>')
-	                    	.attr('src', image_open)
+	                    	.attr('src', image_closed)
 	                    	.appendTo(div_image)
 	                    ;
 	                }
@@ -107,11 +107,12 @@ $.fn.extend({
 					// this is the indentation
 	                $('<div/>')
 						.addClass('expando_indent')
-						.appendTo(div_value)
+						.appendTo(div_row)
 					;
 					
 	                var div_expando = $('<div/>')
 	                    .addClass('opml')
+						.addClass('expando_row')
 						.appendTo(div_value)
 					;
 	
@@ -119,7 +120,8 @@ $.fn.extend({
 	                $(div_expando).show(); //.hide();
 	
 	                $(img).click(function() {
-	                	if ($(div_expando).find('div').length > 1) {
+						var src = $(div_image).find('img').attr('src');
+	                	if (src == image_open || src == image_closed) {
 		                    $(div_expando).toggle();
 		                    if ($(div_expando).is(':visible')) {
 		                        $(img).attr('src', image_open)
@@ -140,7 +142,7 @@ $.fn.extend({
 	                
 					var div_child = $('<div/>')
 						.addClass('expando_table')
-						.appendTo(div_row)
+						.appendTo(div_expando)
 					;
 
 					// recurse

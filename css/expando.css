@@ -1,29 +1,26 @@
 * {
 	font-family: Arial;
+	#border: 1px solid;
 }
 .expando_table {
 	display: flex;
-	border: 1;
 	width: 100%;
 	flex-direction: column;
 }
 .expando_indent {
-	border: 1;
 	#width: 20px;
 	flex: 0;
 }
 .expando_row {
 	display: flex;
 	flex: 1;
-	border: 1;
-	display: flex;
-	flex-direction: row;
+	#display: flex;
+	#flex-direction: row;
 }
 .expando_column {
 	flex: 0;
-	border: 1;
-	width: 100%;
-	display: flex;
+	#width: 100%;
+	#display: flex;
 	flex-direction: row;
 }
 .expando_name {
@@ -34,7 +31,7 @@
 }
 .expando_value {
 	color: red;
-	#border: 0;
+	border: 0;
 	font-size: 14px;
 	height: 12px;
 	flex: 1;
