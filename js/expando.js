@@ -35,122 +35,123 @@ $.fn.extend({
 				)
 			);
         }
-	    else {	
-			// iterate all passed elements
-	        return $(this).each(function() {
-	
-	            var div_table = $('<div/>')
-					.addClass('expando_table')
-					.appendTo($(this))
+
+		// iterate all passed elements
+        return $(this).each(function() {
+
+            var div_table = $('<div/>')
+				.addClass('expando_table')
+				.appendTo($(this))
+			;
+            
+            $.each(node,function(name, child) {
+                if (ignoreFunctions && _.isFunction(child)) {
+                    return;
+                }
+				
+                var div_row = $('<div/>')
+					.addClass('expando_row')
+					.appendTo(div_table)
+                ;
+                
+                var div_image = $('<div/>')
+					.addClass('expando_indent')
+					.attr('valign','top')
+					.appendTo(div_row)
 				;
-	            
-	            $.each(node,function(name, child) {
-	                if (ignoreFunctions && _.isFunction(child)) {
-	                    return;
-	                }
+
+                var img;
+                if (_.isObject(child)) {
+                    img = $('<img/>')
+                    	.attr('src', image_open)
+                    	.appendTo(div_image)
+                    ;
+                }
+                else {
+                    img = $('<img/>')
+                    	.attr('src', image_todo)
+                    	.appendTo(div_image)
+                    ;
+                }
+
+                var div_name = $('<div/>')
+					.addClass('expando_column')
+					.addClass('expando_name')
+					.appendTo(div_row)
+				;
+
+				var div_value = $('<div/>')
+					.addClass('expando_column')
+					.addClass('expando_value')
+					.appendTo(div_row)
+				;
 					
-	                var div_row = $('<div/>')
-						.addClass('expando_row')
-						.appendTo(div_table)
-	                ;
-	                
-	                var div_image = $('<div/>')
-						.addClass('expando_indent')
-						.attr('valign','top')
-						.appendTo(div_row)
+				$('<span>').text(name)
+               	 	.appendTo(div_name)
+				;
+                                
+                if (_.isArray(child)) {
+                    $('<span/>')
+						.text('['+child.length+']')
+						.appendTo(div_name)
+					; 
+                }
+                
+                if (_.isFunction(child)) {
+                    $('<span/>')
+						.text('()')
+						.appendTo(div_name)
 					;
-	
-	                var img;
-	                if (_.isObject(child)) {
-	                    img = $('<img/>')
-	                    	.attr('src', image_closed)
-	                    	.appendTo(div_image)
-	                    ;
-	                }
-	                else {
-	                    img = $('<img/>')
-	                    	.attr('src', image_todo)
-	                    	.appendTo(div_image)
-	                    ;
-	                }
-	
-	                var div_name = $('<div/>')
-						.addClass('expando_column')
-						.addClass('expando_name')
-						.appendTo(div_row)
-					;
-	
-					var div_value = $('<div/>')
-						.addClass('expando_column')
-						.addClass('expando_value')
-						.appendTo(div_row)
-					;
-						
-					$('<span>').text(name)
-	               	 	.appendTo(div_name)
-					;
-	                                
-	                if (_.isArray(child)) {
-	                    $('<span/>')
-							.text('['+child.length+']')
-							.appendTo(div_name)
-						;
-	                }
-	                
-	                if (_.isFunction(child)) {
-	                    $('<span/>')
-							.text('()')
-							.appendTo(div_name)
-						;
-	                }
-	               
-					// this is the indentation
-	                $('<div/>')
-						.addClass('expando_indent')
-						.appendTo(div_row)
-					;
-					
-	                var div_expando = $('<div/>')
-	                    .addClass('opml')
-						.addClass('expando_row')
-						.appendTo(div_value)
-					;
-	
-	                // start closed
-	                $(div_expando).show(); //.hide();
-	
-	                $(img).click(function() {
-						var src = $(div_image).find('img').attr('src');
-	                	if (src == image_open || src == image_closed) {
-		                    $(div_expando).toggle();
-		                    if ($(div_expando).is(':visible')) {
-		                        $(img).attr('src', image_open)
-		                    }
-		                    else {
-		                        $(img).attr('src', image_closed)
-		                    }
+                }
+               				
+
+				// this is the indentation
+                $('<div/>')
+					.addClass('expando_indent')
+					.appendTo(div_row)
+				;
+
+                var div_expando = $('<div/>')
+                    .addClass('opml')
+					.addClass('expando_row')
+					.appendTo(div_value)
+				;
+				
+                // start closed
+                $(div_expando).show(); //.hide();
+
+                $(img).click(function() {
+					var src = $(div_image).find('img').attr('src');
+                	if (src == image_open || src == image_closed) {
+	                    $(div_expando).toggle();
+	                    if ($(div_expando).is(':visible')) {
+	                        $(img).attr('src', image_open)
 	                    }
 	                    else {
-	                    	if ($(img).attr('src') == image_done) {
-		                        $(img).attr('src', image_todo)
-		                    }
-		                    else {
-		                        $(img).attr('src', image_done)
-		                    }
+	                        $(img).attr('src', image_closed)
 	                    }
-	                });
-	                
-					var div_child = $('<div/>')
-						.addClass('expando_table')
-						.appendTo(div_expando) 
-					;
+                    }
+                    else {
+                    	if ($(img).attr('src') == image_done) {
+	                        $(img).attr('src', image_todo)
+	                    }
+	                    else {
+	                        $(img).attr('src', image_done)
+	                    }
+                    }
+                });
 
-					// recurse
-					$(div_child).expando(child, ignoreFunctions, traveled);
-	                
-	            });
-	            
-	        });
-		}
+				var div_child = $('<div/>')
+					.addClass('expando_table')
+					.appendTo(div_expando) 
+				;
+				
+				
+				// recurse
+				$(div_child).expando(child, ignoreFunctions, traveled);
+                
+            });
+            
+        });
     }
 });

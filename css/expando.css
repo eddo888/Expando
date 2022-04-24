@@ -10,6 +10,7 @@
 .expando_indent {
 	#width: 20px;
 	flex: 0;
+	flex-direction: row;
 }
 .expando_row {
 	display: flex;
