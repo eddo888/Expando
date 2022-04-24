@@ -1,9 +1,11 @@
-const image_closed = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoClosed.png';
-const image_open = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/expandoOpen.png';
-const image_property = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/property.png';
-const image_dot = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/task0.png';
-const image_todo = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/taskTodoIncomplete.png';
-const image_done = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/taskTodoComplete.png';
+const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
+
+const image_closed   = image_base + 'expandoClosed.png';
+const image_open     = image_base + 'expandoOpen.png';
+const image_property = image_base + 'property.png';
+const image_dot      = image_base + 'task0.png';
+const image_todo     = image_base + 'taskTodoIncomplete.png';
+const image_done     = image_base + 'taskTodoComplete.png';
 
 $.fn.extend({
     expando: function(node, ignoreFunctions, traveled) {
@@ -11,29 +13,26 @@ $.fn.extend({
         if (_.contains(traveled,node)) return;
         traveled.push(node);
       
-        if (!_.isObject(node)) {
+        if (!_.isObject(node)) { // is a value
             return $(this).append(
-            	$('<table>')
-					.addClass('property_table')
-              		.append(
-		                $('<tr>')
-							.addClass('property_tr')
-		                    .append(
-		                    	$('<td>')
-							  		.addClass('property_td')
-		                      		.append(
-							  	  		$('<textarea>')
-		                      	  	  		.addClass('property_value')
-		                      	  	  		.val(node)
-		                      		)
-		                  	)
-              		)
-            );
+				$('<td>')
+					.addClass('expando_td')
+					.append(
+						$('<div/>')
+							.addClass('expando_container')
+			          		.append(
+					  	  		$('<textarea>')
+			                  	 	.addClass('expando_value')
+			          	  	  		.val(node)
+			          		)
+					)
+				
+			);
         }
       
         return $(this).each(function() {
             var table = $('<table/>')
-				.addClass('property_table')
+				.addClass('expando_table')
 				.appendTo($(this))
 			;
             
@@ -42,7 +41,7 @@ $.fn.extend({
                     return;
                 }
                 var tr = $('<tr/>')
-					.addClass('property_tr')
+					.addClass('expando_tr')
                     .appendTo(table)
                 ;
                 
@@ -66,47 +65,60 @@ $.fn.extend({
                 }
 
                 var td = $('<td/>')
-					.addClass('property_td')
 					.appendTo(tr)
 				;
 
-				
-                var a = $('<span/>')
-					.addClass('property_name')
+				var container = $('<div/>')
+					.addClass('expando_container')
+					.appendTo(td)
+				;
+					
+                var a = $('<div/>')
+					.addClass('expando_name')
 					.append(
                 		$('<span>').text(name)
-               	 	).appendTo(td)
+               	 	).appendTo(container)
 				;
                 
                 if (! _.isObject(child)) {
                     $('<span/>').val(': ').appendTo(td);
-                    $('<input/>')
-						.addClass('property_value')
+                    $('<textarea/>')
+						.addClass('expando_value')
 						.val(child)
-						.appendTo(td)
+						.appendTo(container)
 					;
                 }
                 
                 if (_.isArray(child)) {
                     $('<span/>')
 						.text('['+child.length+']')
-						.appendTo(td)
+						.appendTo(container)
 					;
                 }
                 
                 if (_.isFunction(child)) {
-                    $('<span/>').text('()').appendTo(td);
+                    $('<span/>')
+						.text('()')
+						.appendTo(container)
+					;
                 }
                 
-                tr = $('<tr/>').appendTo(table);
-                $('<td/>').appendTo(tr);
+                var lower = $('<tr/>')
+					.addClass('expando_tr')
+					.appendTo(table)
+				;
+                $('<td/>')
+					.appendTo(lower)
+				;
                 
                 var div = $('<div/>')
                     .addClass('opml')
+					.addClass('expando_container')
 					.appendTo(
 						$('<td/>')
+							.addClass('expando_td')
 							.attr('valign','bottom')
-							.appendTo(tr)
+							.appendTo(lower)
 					)
 				;
 
