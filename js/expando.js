@@ -15,22 +15,18 @@ $.fn.extend({
       
         if (!_.isObject(node)) { // is a value
             return $(this).append(
-				$('<td>')
-					.addClass('expando_td')
+				$('<div/>')
+					.addClass('expando_container')
 					.append(
-						$('<div/>')
-							.addClass('expando_container')
-			          		.append(
-					  	  		$('<textarea>')
-			                  	 	.addClass('expando_value')
-			          	  	  		.val(node)
-			          		)
-					)
-				
+						$('<textarea>')
+    	      	 			.addClass('expando_value')
+  	  		  				.val(node)
+				)
 			);
         }
       
         return $(this).each(function() {
+
             var table = $('<table/>')
 				.addClass('expando_table')
 				.appendTo($(this))
@@ -40,11 +36,13 @@ $.fn.extend({
                 if (ignoreFunctions && _.isFunction(child)) {
                     return;
                 }
+				
                 var tr = $('<tr/>')
 					.addClass('expando_tr')
                     .appendTo(table)
                 ;
                 
+				// this is the indentation
                 var td = $('<td/>')
 					.attr('valign','top')
 					.appendTo(tr)
@@ -53,7 +51,7 @@ $.fn.extend({
                 var img;
                 if (_.isObject(child)) {
                     img = $('<img/>')
-                    	.attr('src',image_closed)
+                    	.attr('src', image_closed)
                     	.appendTo(td)
                     ;
                 }
@@ -64,7 +62,9 @@ $.fn.extend({
                     ;
                 }
 
+				// this is the value
                 var td = $('<td/>')
+					.addClass('expando_td')
 					.appendTo(tr)
 				;
 
@@ -81,7 +81,9 @@ $.fn.extend({
 				;
                 
                 if (! _.isObject(child)) {
-                    $('<span/>').val(': ').appendTo(td);
+                    $('<span/>').val(': ')
+						.appendTo(container)
+					;
                     $('<textarea/>')
 						.addClass('expando_value')
 						.val(child)
@@ -107,10 +109,13 @@ $.fn.extend({
 					.addClass('expando_tr')
 					.appendTo(table)
 				;
+
+				// this is the indentation
                 $('<td/>')
 					.appendTo(lower)
 				;
                 
+				
                 var div = $('<div/>')
                     .addClass('opml')
 					.addClass('expando_container')

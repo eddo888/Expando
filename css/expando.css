@@ -11,6 +11,7 @@
 }
 .expando_td {
 	width: 100%;
+	flex: 1;
 	border: 1px solid;
 }
 .expando_container {
@@ -26,6 +27,7 @@
 }
 .expando_value {
 	color: red;
+	width: 100%;
 	#border: 0;
 	font-size: 14px;
 	height: 12px;
