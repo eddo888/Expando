@@ -7,16 +7,27 @@ const image_dot      = image_base + 'task0.png';
 const image_todo     = image_base + 'taskTodoIncomplete.png';
 const image_done     = image_base + 'taskTodoComplete.png';
 
+
+var example = `
+  <div class="expando_table">
+    <div class="expando_row">
+	  <div class="expando_name"/>    <div class="expando_value"/>
+	<div/>
+	<div class="expando_row"/>
+  </div>
+`;
+
 $.fn.extend({
     expando: function(node, ignoreFunctions, traveled) {
         if (!traveled) traveled = [];
         if (_.contains(traveled,node)) return;
         traveled.push(node);
       
-        if (!_.isObject(node)) { // is a value
+		// is a normal value
+        if (!_.isObject(node)) {
             return $(this).append(
 				$('<div/>')
-					.addClass('expando_container')
+					.addClass('expando_column')
 					.append(
 						$('<textarea>')
     	      	 			.addClass('expando_value')
@@ -24,138 +35,120 @@ $.fn.extend({
 				)
 			);
         }
-      
-        return $(this).each(function() {
-
-            var table = $('<table/>')
-				.addClass('expando_table')
-				.appendTo($(this))
-			;
-            
-            $.each(node,function(name, child) {
-                if (ignoreFunctions && _.isFunction(child)) {
-                    return;
-                }
-				
-                var tr = $('<tr/>')
-					.addClass('expando_tr')
-                    .appendTo(table)
-                ;
-                
-				// this is the indentation
-                var td = $('<td/>')
-					.attr('valign','top')
-					.appendTo(tr)
+	    else {	
+			// iterate all passed elements
+	        return $(this).each(function() {
+	
+	            var div_table = $('<div/>')
+					.addClass('expando_table')
+					.appendTo($(this))
 				;
-
-                var img;
-                if (_.isObject(child)) {
-                    img = $('<img/>')
-                    	.attr('src', image_closed)
-                    	.appendTo(td)
-                    ;
-                }
-                else {
-                    img = $('<img/>')
-                    	.attr('src', image_todo)
-                    	.appendTo(td)
-                    ;
-                }
-
-				// this is the value
-                var td = $('<td/>')
-					.addClass('expando_td')
-					.appendTo(tr)
-				;
-
-				var container = $('<div/>')
-					.addClass('expando_container')
-					.appendTo(td)
-				;
+	            
+	            $.each(node,function(name, child) {
+	                if (ignoreFunctions && _.isFunction(child)) {
+	                    return;
+	                }
 					
-                var a = $('<div/>')
-					.addClass('expando_name')
-					.append(
-                		$('<span>').text(name)
-               	 	).appendTo(container)
-				;
-                
-                if (! _.isObject(child)) {
-                    $('<span/>').val(': ')
-						.appendTo(container)
+	                var div_row = $('<div/>')
+						.addClass('expando_row')
+						.appendTo(div_table)
+	                ;
+	                
+	                var div_image = $('<div/>')
+						.addClass('expando_indent')
+						.attr('valign','top')
+						.appendTo(div_row)
 					;
-                    $('<textarea/>')
+	
+	                var img;
+	                if (_.isObject(child)) {
+	                    img = $('<img/>')
+	                    	.attr('src', image_open)
+	                    	.appendTo(div_image)
+	                    ;
+	                }
+	                else {
+	                    img = $('<img/>')
+	                    	.attr('src', image_todo)
+	                    	.appendTo(div_image)
+	                    ;
+	                }
+	
+	                var div_name = $('<div/>')
+						.addClass('expando_column')
+						.addClass('expando_name')
+						.appendTo(div_row)
+					;
+	
+					var div_value = $('<div/>')
+						.addClass('expando_column')
 						.addClass('expando_value')
-						.val(child)
-						.appendTo(container)
+						.appendTo(div_row)
 					;
-                }
-                
-                if (_.isArray(child)) {
-                    $('<span/>')
-						.text('['+child.length+']')
-						.appendTo(container)
+						
+					$('<span>').text(name)
+	               	 	.appendTo(div_name)
 					;
-                }
-                
-                if (_.isFunction(child)) {
-                    $('<span/>')
-						.text('()')
-						.appendTo(container)
+	                                
+	                if (_.isArray(child)) {
+	                    $('<span/>')
+							.text('['+child.length+']')
+							.appendTo(div_name)
+						;
+	                }
+	                
+	                if (_.isFunction(child)) {
+	                    $('<span/>')
+							.text('()')
+							.appendTo(div_name)
+						;
+	                }
+	               
+					// this is the indentation
+	                $('<div/>')
+						.addClass('expando_indent')
+						.appendTo(div_value)
 					;
-                }
-                
-                var lower = $('<tr/>')
-					.addClass('expando_tr')
-					.appendTo(table)
-				;
-
-				// this is the indentation
-                $('<td/>')
-					.appendTo(lower)
-				;
-                
-				
-                var div = $('<div/>')
-                    .addClass('opml')
-					.addClass('expando_container')
-					.appendTo(
-						$('<td/>')
-							.addClass('expando_td')
-							.attr('valign','bottom')
-							.appendTo(lower)
-					)
-				;
-
-                // start closed
-                $(div).hide();
-
-                $(img).click(function() {
-                	if ($(div).find('tr').length > 1) {
-	                    $(div).toggle();
-	                    if ($(div).is(':visible')) {
-	                        $(img).attr('src', image_open)
+					
+	                var div_expando = $('<div/>')
+	                    .addClass('opml')
+						.appendTo(div_value)
+					;
+	
+	                // start closed
+	                $(div_expando).show(); //.hide();
+	
+	                $(img).click(function() {
+	                	if ($(div_expando).find('div').length > 1) {
+		                    $(div_expando).toggle();
+		                    if ($(div_expando).is(':visible')) {
+		                        $(img).attr('src', image_open)
+		                    }
+		                    else {
+		                        $(img).attr('src', image_closed)
+		                    }
 	                    }
 	                    else {
-	                        $(img).attr('src', image_closed)
+	                    	if ($(img).attr('src') == image_done) {
+		                        $(img).attr('src', image_todo)
+		                    }
+		                    else {
+		                        $(img).attr('src', image_done)
+		                    }
 	                    }
-                    }
-                    else {
-                    	if ($(img).attr('src') == image_done) {
-	                        $(img).attr('src', image_todo)
-	                    }
-	                    else {
-	                        $(img).attr('src', image_done)
-	                    }
-                    }
-                });
-                
-                if (_.isObject(child)) {
-                    $(div).expando(child, ignoreFunctions, traveled);
-                }
-                
-            });
-            
-        });
+	                });
+	                
+					var div_child = $('<div/>')
+						.addClass('expando_table')
+						.appendTo(div_row)
+					;
+
+					// recurse
+					$(div_child).expando(child, ignoreFunctions, traveled);
+	                
+	            });
+	            
+	        });
+		}
     }
 });
