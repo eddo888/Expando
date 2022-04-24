@@ -2,40 +2,93 @@
 <html>
 <head>
 <style>
-.flex-container {
-  display: flex;
-  background-color: DodgerBlue;
+
+span {
+	font-family: Arial;
+	font-size: 14;
 }
 
-.flex-container > div {
-  background-color: #f1f1f1;
-  margin: 10px;
-  padding: 20px;
-  font-size: 30px;
+.table {
+	display: flex;
+	flex-direction: column;
 }
-.expando {
-  flex: 1;
+
+.row {
+	display: flex;
+	flex-direction: column;
 }
+
+.col {
+	display: flex;
+	flex-direction: row;
+}
+
+.name {
+	color: purple;
+	flex: 0;
+}
+
+.value {
+	color: red;
+	width: 100%;
+	flex: 1;
+}
+
+.guide {
+	color: gray;
+	display: none;
+}
+
+div {
+	padding: 2px;
+	border: 1px solid;
+}
+
 textarea {
-  border: 0;
-  width: 100%;
+  #border: 0;
+  width: 100%
 }
+
 </style>
 </head>
 <body>
 
-<h1>Create a Flex Container</h1>
+	<div class="table">
+		<span class="guide">table</span>
 
-<div class="flex-container">
-  <div>1</div>
-  <div>2</div>
-  <div class="expando"><textarea>bob</textarea></div>  
-</div>
+		<div class="row">
+			<span class="guide">r1</span>
+			
+			<div class="col">
 
-<p>A Flexible Layout must have a parent element with the <em>display</em> property set to <em>flex</em>.</p>
-
-<p>Direct child elements(s) of the flexible container automatically becomes flexible items.</p>
-
+				<span class="guide">c1</span>			
+			    <div class="name">
+					<span>n1</span>
+				</div>
+				
+				<span class="guide">c2</span>
+				<div class="value">
+					<textarea>v1</textarea>
+				</div>
+			</div>
+			
+			<span class="guide">r2</span>
+			
+			<div class="col">
+				
+				<span class="guide">c3</span>
+			    <div class="name">
+			 		<span>n2</span>
+				</div>
+				
+				<span class="guide">c4</span>
+				<div class="value">
+					<textarea>v2</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+  
 </body>
 </html>
 

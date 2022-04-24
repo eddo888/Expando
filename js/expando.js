@@ -9,11 +9,11 @@ const image_done     = image_base + 'taskTodoComplete.png';
 
 
 var example = `
-  <div class="expando_table">
-    <div class="expando_row">
-	  <div class="expando_name"/>    <div class="expando_value"/>
+  <div class="table">
+    <div class="row">
+	  <div class="name">eddo:root</div> <div class="value"/>
 	<div/>
-	<div class="expando_row"/>
+	<div class="row"/>
   </div>
 `;
 
@@ -142,7 +142,7 @@ $.fn.extend({
 	                
 					var div_child = $('<div/>')
 						.addClass('expando_table')
-						.appendTo(div_expando)
+						.appendTo(div_expando) 
 					;
 
 					// recurse
