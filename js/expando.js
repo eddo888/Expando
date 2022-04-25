@@ -1,6 +1,6 @@
 
-//const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
-const image_base = 'image/';
+const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
+//const image_base = 'image/';
 
 const image_closed   = image_base + 'expandoClosed.png';
 const image_open     = image_base + 'expandoOpen.png';
