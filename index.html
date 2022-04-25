@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <title>
-   Expando
-  </title>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, height=device-height, initial-scale=1" name="viewport"/>
-  <meta content="yes" name="apple-mobile-web-app-capable"/>
-  <link href="css/expando.css" rel="stylesheet" type="text/css"/>
-  <link href="lib/code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
-  <style type="text/css">
+  <head>
+	<title>
+	  Expando
+	</title>
+	<meta charset="utf-8"/>
+	<meta content="width=device-width, height=device-height, initial-scale=1" name="viewport"/>
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<link href="css/expando.css" rel="stylesheet" type="text/css"/>
+	<link href="lib/code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
+
+	<style type="text/css">
 textarea {
 	#border: none;
 	width: 100%;
@@ -20,97 +21,91 @@ textarea {
 .opml {
 	height: 100%;
 }
-  </style>
-  <script src="lib/code.jquery.com/jquery-1.12.4.js">
-  </script>
-  <script src="lib/code.jquery.com/ui/1.12.1/jquery-ui.js">
-  </script>
-  <script src="lib/cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript">
-  </script>
-  <script src="lib/rawgit.com/kawanet/from-xml/master/dist/from-xml.min.js">
-  </script>
-  <script src="lib/rawgit.com/kawanet/to-xml/master/dist/to-xml.min.js">
-  </script>
-  <script src="js/expando.js" type="text/javascript">
-  </script>
-  <script src="js/index.js" type="text/javascript">
-  </script>
- </head>
- <body>
-  <div>
-   <fieldset>
-    <legend>
-     Options:
-    </legend>
-    <label for="igfunchk">
-     Ignore Functions
-    </label>
-    <input checked="true" id="igfunchk" name="igfunchk" type="checkbox"/>
-    <label for="diagchk">
-     Diagnostics
-    </label>
-    <input id="diagchk" name="diagchk" type="checkbox"/>
-   </fieldset>
-  </div>
-  <div>
-   <fieldset>
-    <legend>
-     Data Type:
-    </legend>
-    <label for="is-json">
-     JSON
-    </label>
-    <input id="is-json" name="is-1" type="radio"/>
-    <label for="is-xml">
-     XML
-    </label>
-    <input checked="true" id="is-xml" name="is-1" type="radio"/>
-   </fieldset>
-  </div>
-  <div>
-   <fieldset>
-    <legend>
-     Source
-    </legend>
-    <textarea id="source">
-    </textarea>
-    <button id="parse">
-     Parse
-    </button>
-    <button id="unparse">
-     Unparse
-    </button>
-   </fieldset>
-  </div>
-  <div>
-   <fieldset>
-    <legend>
-     Expando
-    </legend>
-    <div id="mygoodies">
-    </div>
-   </fieldset>
-  </div>
-  <div id="diagnostics">
-   <fieldset>
-    <legend>
-     Dignostics
-    </legend>
-    <p>
-     <span class="property_name">
-      When:
-     </span>
-     <apan class="property_value" id="when">
-     </apan>
-    </p>
-    <p>
-     <span class="property_name">
-      Functions:
-     </span>
-     <apan class="property_value" id="igfun">
-     </apan>
-    </p>
-   </fieldset>
-  </div>
- </body>
+	</style>
+
+	<script src="lib/code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="lib/code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="lib/cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
+	<script src="lib/rawgit.com/kawanet/from-xml/master/dist/from-xml.min.js"></script>
+	<script src="lib/rawgit.com/kawanet/to-xml/master/dist/to-xml.min.js"></script>
+	<script src="js/expando.js" type="text/javascript"></script>
+	<script src="js/index.js" type="text/javascript"></script>
+  </head>
+  <body>
+	<div>
+	  <fieldset>
+		<legend>
+		  Options:
+		</legend>
+		<label for="igfunchk">
+		  Ignore Functions
+		</label>
+		<input checked="true" id="igfunchk" name="igfunchk" type="checkbox"/>
+		<label for="diagchk">
+		  Diagnostics
+		</label>
+		<input id="diagchk" name="diagchk" type="checkbox"/>
+	  </fieldset>
+	</div>
+	<div>
+	  <fieldset>
+		<legend>
+		  Data Type:
+		</legend>
+		<label for="is-json">
+		  JSON
+		</label>
+		<input id="is-json" name="is-1" type="radio"/>
+		<label for="is-xml">
+		  XML
+		</label>
+		<input checked="true" id="is-xml" name="is-1" type="radio"/>
+	  </fieldset>
+	</div>
+	<div>
+	  <fieldset>
+		<legend>
+		  Source
+		</legend>
+		<textarea id="source">
+		</textarea>
+		<button id="parse">
+		  Parse
+		</button>
+		<button id="unparse">
+		  Unparse
+		</button>
+	  </fieldset>
+	</div>
+	<div>
+	  <fieldset>
+		<legend>
+		  Expando
+		</legend>
+		<div id="mygoodies">
+		</div>
+	  </fieldset>
+	</div>
+	<div id="diagnostics">
+	  <fieldset>
+		<legend>
+		  Dignostics
+		</legend>
+		<p>
+		  <span class="property_name">
+			When:
+		  </span>
+		  <apan class="property_value" id="when">
+		  </apan>
+		</p>
+		<p>
+		  <span class="property_name">
+			Functions:
+		  </span>
+		  <apan class="property_value" id="igfun">
+		  </apan>
+		</p>
+	  </fieldset>
+	</div>
+  </body>
 </html>
