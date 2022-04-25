@@ -9,17 +9,6 @@ const image_blank    = image_base + 'blank.png';
 const image_todo     = image_base + 'taskTodoIncomplete.png';
 const image_done     = image_base + 'taskTodoComplete.png';
 
-const icon_closed    = "▶️🔽❎✅🟩🟥☑️❌⭕️🚫";
-
-var example = `
-  <div class="table">
-    <div class="row">
-	  <div class="name">eddo:root</div> <div class="value"/>
-	<div/>
-	<div class="row"/>
-  </div>
-`;
-
 var is_array = new RegExp('^([^\[]*)\[[0-9]*\]$');
 
 $.fn.extend({
@@ -202,7 +191,7 @@ $.fn.extend({
 
 							var match = name.match(is_array);
 							if (match) {
-								console.log(match);
+								//console.log(match);
 								previous = match[1];
 								tipe = [];
 								return;
@@ -214,7 +203,8 @@ $.fn.extend({
 							}
 							return;
 						}
-						console.log('value?',value);
+						
+						//console.log('value?',value);
 												
 						if (opml && previous && previous.length > 0) {
 							var d = $(opml).collapso(tipe);

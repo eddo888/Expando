@@ -32,9 +32,11 @@ def main():
 	for file in os.listdir('.'):
 		if not file.split('.')[-1].lower().endswith('html'): 
 			continue
+		if file.startswith('.'):
+			continue
 		with open(file) as input:
 			print(file)
-			bs = BS(input.read(),'html5lib')
+			bs = BS(input.read()) #,'html5lib')
 			
 			for link in bs.find_all('link'):
 				if 'href' not in link.attrs.keys():
@@ -46,8 +48,8 @@ def main():
 					continue
 				script.attrs['src'] = get(script.attrs['src'])
 
-			with open(file,'w') as output:
-				output.write(bs.prettify())
+			with open(f'.{file}','w') as output:
+				output.write(str(bs))
 				
 if __name__ == '__main__': main()
 
