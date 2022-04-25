@@ -1,10 +1,11 @@
 
-const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
+//const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
+const image_base = 'image/';
 
 const image_closed   = image_base + 'expandoClosed.png';
 const image_open     = image_base + 'expandoOpen.png';
 const image_property = image_base + 'property.png';
-const image_blank    = image_base + 'taskBlank.png';
+const image_blank    = image_base + 'blank.png';
 const image_todo     = image_base + 'taskTodoIncomplete.png';
 const image_done     = image_base + 'taskTodoComplete.png';
 
@@ -143,6 +144,7 @@ $.fn.extend({
 					;
 					
 					var div_expando = $('<div/>')
+						.addClass('expando_value')
 						.addClass('opml')
 						.appendTo(new_row)
 					;
