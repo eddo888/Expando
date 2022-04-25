@@ -9,6 +9,8 @@ const image_blank    = image_base + 'blank.png';
 const image_todo     = image_base + 'taskTodoIncomplete.png';
 const image_done     = image_base + 'taskTodoComplete.png';
 
+const icon_closed    = "▶️🔽❎✅🟩🟥☑️❌⭕️🚫";
+
 var example = `
   <div class="table">
     <div class="row">
