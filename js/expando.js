@@ -1,3 +1,4 @@
+
 const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
 
 const image_closed   = image_base + 'expandoClosed.png';
@@ -106,7 +107,7 @@ $.fn.extend({
 				;
 
 				if (!_.isObject(child)) {
-					$('<textarea>')
+					$('<input/>')
 						.addClass('expando_value')
 						.val(child)
  	  		  			.appendTo(div_value)
@@ -124,10 +125,13 @@ $.fn.extend({
 
 				}
 				else {
-
+					// force a new line
 					var div_expando = $('<div/>')
+						.append(
+							$('<br/>')
+						)
 						.addClass('opml')
-						.appendTo(div_col)
+						.appendTo(div_value)
 					;
 					
 					// start closed
