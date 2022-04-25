@@ -85,7 +85,7 @@ $.fn.extend({
                 var div_name = $('<div/>')
 					.addClass('expando_name')
 					.append(
-						$('<span>').text(name)
+						$('<span/>').text(name)
 					)
 					.appendTo(div_col)
 				;
