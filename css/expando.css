@@ -8,9 +8,9 @@
 	flex-direction: column;
 }
 .expando_indent {
-	#width: 20px;
+	width: 20px;
 	flex: 0;
-	flex-direction: row;
+	flex-direction: column;
 }
 .expando_row {
 	display: flex;
@@ -28,7 +28,7 @@
 	color: purple;
 	font-size: 14px;
 	height: 12px;
-	flex 0;
+	flex: 0;
 }
 .expando_value {
 	color: red;

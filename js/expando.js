@@ -59,7 +59,7 @@ $.fn.extend({
 					.attr('valign','top')
 					.appendTo(div_row)
 				;
-
+				
                 var img;
                 if (_.isObject(child)) {
                     img = $('<img/>')
@@ -75,13 +75,11 @@ $.fn.extend({
                 }
 
                 var div_name = $('<div/>')
-					.addClass('expando_column')
 					.addClass('expando_name')
 					.appendTo(div_row)
 				;
 
 				var div_value = $('<div/>')
-					.addClass('expando_column')
 					.addClass('expando_value')
 					.appendTo(div_row)
 				;
@@ -104,13 +102,16 @@ $.fn.extend({
 					;
                 }
                				
-
+/*
 				// this is the indentation
                 $('<div/>')
 					.addClass('expando_indent')
+					.append(
+						$('<span/>').text('.')
+					)
 					.appendTo(div_row)
 				;
-
+*/
                 var div_expando = $('<div/>')
                     .addClass('opml')
 					.addClass('expando_row')
@@ -146,10 +147,24 @@ $.fn.extend({
 					.appendTo(div_expando) 
 				;
 				
+				var div_child_row = $('<div/>')
+					.append(
+						$('<p/>')
+					)
+					.appendTo(div_child)
+				;	
 				
-				// recurse
-				$(div_child).expando(child, ignoreFunctions, traveled);
-                
+				if (_.isObject(child)) {
+					// recurse
+					$(div_child_row).expando(child, ignoreFunctions, traveled);
+                }
+                else {
+					$('<textarea>')
+   	      	 			.addClass('expando_value')
+ 	  		  			.val(child)
+ 	  		  			.appendTo(div_row)
+					;	
+				}
             });
             
         });
