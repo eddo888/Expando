@@ -9,7 +9,6 @@ const image_blank    = image_base + 'blank.png';
 const image_todo     = image_base + 'taskTodoIncomplete.png';
 const image_done     = image_base + 'taskTodoComplete.png';
 
-
 var example = `
   <div class="table">
     <div class="row">
@@ -18,6 +17,8 @@ var example = `
 	<div class="row"/>
   </div>
 `;
+
+var is_array = new RegExp('^([^\[]*)\[[0-9]*\]$');
 
 $.fn.extend({
     expando: function(node, ignoreFunctions, traveled) {
@@ -172,8 +173,8 @@ $.fn.extend({
 			});
         });
     },
-	collapso: function() {
-		var dict = {};
+	collapso: function(tipe) {
+		var dict = tipe || {};
 		
 		$(this).each(function(i1, child) {
 			//console.log(i1, child);
@@ -185,6 +186,7 @@ $.fn.extend({
 					//console.log(i3, row);
 
 					var previous = null;
+					var tipe = {};
 					
 					$(row).children('div.expando_column').each(function(i4, col) {
 						//console.log(i4, col);
@@ -196,15 +198,24 @@ $.fn.extend({
 						if (name && name.length > 0) {
 							previous = name;
 
+							var match = name.match(is_array);
+							if (match) {
+								console.log(match);
+								previous = match[1];
+								tipe = [];
+								return;
+							}
+							
 							if (value && value.length > 0) {
 								//console.log(name, ':', value);
 								dict[name] = value
 							}
 							return;
 						}
-
+						console.log('value?',value);
+												
 						if (opml && previous && previous.length > 0) {
-							var d = $(opml).collapso();
+							var d = $(opml).collapso(tipe);
 							//console.log(previous, d);
 							dict[previous] = d;
 						}
