@@ -28,14 +28,13 @@ function parse(){
 	if ($('#is-xml').is(':checked')) {
 		obj = fromXML($('#source').val());
 	}
-	
+	console.log('parsed', obj);
 	reload();
 }
 
 function unparse(){
 	var goodies = $('#mygoodies').collapso();
-	//console.log('goodies',goodies);
-	
+	console.log('unparsed',goodies);
 	if ($('#is-json').is(':checked')) {
 		$('#source').val(JSON.stringify(goodies,null,4));
 	} 
