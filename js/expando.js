@@ -27,7 +27,6 @@ $.fn.extend({
         if (!_.isObject(node)) {
             return $(this).append(
 				$('<div/>')
-					.addClass('expando_column')
 					.append(
 						$('<textarea>')
     	      	 			.addClass('expando_value')
@@ -74,20 +73,19 @@ $.fn.extend({
                     ;
                 }
 
+				var div_col = $('<div/>')
+					.addClass('expando_column')
+					.appendTo(div_row)
+				;
+				
                 var div_name = $('<div/>')
 					.addClass('expando_name')
-					.appendTo(div_row)
+					.append(
+						$('<span>').text(name)
+					)
+					.appendTo(div_col)
 				;
 
-				var div_value = $('<div/>')
-					.addClass('expando_value')
-					.appendTo(div_row)
-				;
-					
-				$('<span>').text(name)
-               	 	.appendTo(div_name)
-				;
-                                
                 if (_.isArray(child)) {
                     $('<span/>')
 						.text('['+child.length+']')
@@ -101,72 +99,63 @@ $.fn.extend({
 						.appendTo(div_name)
 					;
                 }
-               				
-/*
-				// this is the indentation
-                $('<div/>')
-					.addClass('expando_indent')
-					.append(
-						$('<span/>').text('.')
-					)
-					.appendTo(div_row)
-				;
-*/
-                var div_expando = $('<div/>')
-                    .addClass('opml')
-					.addClass('expando_row')
-					.appendTo(div_value)
-				;
-				
-                // start closed
-                $(div_expando).show(); //.hide();
 
-                $(img).click(function() {
-					var src = $(div_image).find('img').attr('src');
-                	if (src == image_open || src == image_closed) {
-	                    $(div_expando).toggle();
-	                    if ($(div_expando).is(':visible')) {
-	                        $(img).attr('src', image_open)
-	                    }
-	                    else {
-	                        $(img).attr('src', image_closed)
-	                    }
-                    }
-                    else {
-                    	if ($(img).attr('src') == image_done) {
-	                        $(img).attr('src', image_todo)
-	                    }
-	                    else {
-	                        $(img).attr('src', image_done)
-	                    }
-                    }
-                });
-
-				var div_child = $('<div/>')
-					.addClass('expando_table')
-					.appendTo(div_expando) 
+				var div_value = $('<div/>')
+					.addClass('expando_value')
+					.appendTo(div_col)
 				;
-				
-				var div_child_row = $('<div/>')
-					.append(
-						$('<p/>')
-					)
-					.appendTo(div_child)
-				;	
-				
-				if (_.isObject(child)) {
-					// recurse
-					$(div_child_row).expando(child, ignoreFunctions, traveled);
-                }
-                else {
+
+				if (!_.isObject(child)) {
 					$('<textarea>')
-   	      	 			.addClass('expando_value')
- 	  		  			.val(child)
- 	  		  			.appendTo(div_row)
-					;	
+						.addClass('expando_value')
+						.val(child)
+ 	  		  			.appendTo(div_value)
+					;
+					
+					$(img).click(function() {
+						var src = $(div_image).find('img').attr('src');
+                		if (src == image_todo) {
+							$(img).attr('src', image_done)
+						}
+						else {
+							$(img).attr('src', image_todo)
+						}
+					});
+
 				}
-            });
+				else {
+
+					var div_expando = $('<div/>')
+						.addClass('opml')
+						.appendTo(div_col)
+					;
+					
+					// start closed
+					$(div_expando).show(); //.hide();
+					
+					$(img).click(function() {
+						var src = $(div_image).find('img').attr('src');
+                		if (src == image_open || src == image_closed) {
+							$(div_expando).toggle();
+							if ($(div_expando).is(':visible')) {
+								$(img).attr('src', image_open)
+							}
+							else {
+								$(img).attr('src', image_closed)
+							}
+						}
+					});
+					
+					var div_child = $('<div/>')
+						.addClass('expando_table')
+						.appendTo(div_expando) 
+					;
+
+					// recurse
+					$(div_child).expando(child, ignoreFunctions, traveled);
             
+				}
+			});
         });
     }
 });

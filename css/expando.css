@@ -9,18 +9,15 @@
 }
 .expando_indent {
 	width: 20px;
-	flex: 0;
-	flex-direction: column;
 }
 .expando_row {
+	#flex: 1;
 	display: flex;
-	flex: 1;
-	#display: flex;
-	#flex-direction: row;
+	flex-direction: row;
 }
 .expando_column {
-	flex: 0;
-	#width: 100%;
+	#flex: 0;
+	width: 100%;
 	#display: flex;
 	flex-direction: row;
 }
@@ -31,6 +28,7 @@
 	flex: 0;
 }
 .expando_value {
+	width: 100%;
 	color: red;
 	border: 0;
 	font-size: 14px;
