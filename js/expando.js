@@ -171,5 +171,48 @@ $.fn.extend({
 				}
 			});
         });
-    }
+    },
+	collapso: function() {
+		var dict = {};
+		
+		$(this).each(function(i1, child) {
+			//console.log(i1, child);
+			
+			$(child).children('div.expando_table').each(function(i2, table) {
+				//console.log(i2, table);
+				
+				$(table).children('div.expando_row').each(function(i3, row) {
+					//console.log(i3, row);
+
+					var previous = null;
+					
+					$(row).children('div.expando_column').each(function(i4, col) {
+						//console.log(i4, col);
+						
+						var name = $(col).children('div.expando_name').children('span').text();
+						var value = $(col).children('div.expando_value').children('input').val();
+						var opml = $(col).children('div.opml');
+
+						if (name && name.length > 0) {
+							previous = name;
+
+							if (value && value.length > 0) {
+								//console.log(name, ':', value);
+								dict[name] = value
+							}
+							return;
+						}
+
+						if (opml && previous && previous.length > 0) {
+							var d = $(opml).collapso();
+							//console.log(previous, d);
+							dict[previous] = d;
+						}
+					});
+				});
+			});
+		});
+		
+		return dict;
+	}
 });

@@ -28,15 +28,19 @@ function parse(){
 	if ($('#is-xml').is(':checked')) {
 		obj = fromXML($('#source').val());
 	}
+	
 	reload();
 }
 
 function unparse(){
+	var goodies = $('#mygoodies').collapso();
+	//console.log('goodies',goodies);
+	
 	if ($('#is-json').is(':checked')) {
-		$('#source').val(JSON.stringify(obj,null,4));
+		$('#source').val(JSON.stringify(goodies,null,4));
 	} 
 	if ($('#is-xml').is(':checked')) {
-		$('#source').val(toXML(obj,null,4));
+		$('#source').val(toXML(goodies,null,4));
 	}
 }
 
