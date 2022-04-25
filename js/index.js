@@ -1,12 +1,14 @@
 var xml=`\
 <?xml version="1.0" encoding="UTF-8"?>
-<eddo:root xmlns:eddo="ns:eddo &amp; and" attr="val ' <">
-    <child1>text " &gt;</child1>
+<eddo:root xmlns:eddo="ns:eddo">
+    <child1>text</child1>
     <!-- you cant see me -->
-    <child2>
-        <grandchild>one ' &lt;</grandchild>
-        <grandchild>two " &gt;</grandchild>
-    </child2>
+    <child>
+        <grandchild>one</grandchild>
+        <grandchild>two</grandchild>
+        <grandchild>gggbffg</grandchild>
+    </child>
+    <child3 a2="v2">complex text</child3>
 </eddo:root>
 `;
 
