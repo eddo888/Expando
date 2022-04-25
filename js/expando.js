@@ -4,7 +4,7 @@ const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
 const image_closed   = image_base + 'expandoClosed.png';
 const image_open     = image_base + 'expandoOpen.png';
 const image_property = image_base + 'property.png';
-const image_dot      = image_base + 'task0.png';
+const image_blank    = image_base + 'taskBlank.png';
 const image_todo     = image_base + 'taskTodoIncomplete.png';
 const image_done     = image_base + 'taskTodoComplete.png';
 
@@ -54,13 +54,19 @@ $.fn.extend({
 					.appendTo(div_table)
                 ;
                 
+				var div_col = $('<div/>')
+					.addClass('expando_column')
+					.appendTo(div_row)
+				;
+
                 var div_image = $('<div/>')
 					.addClass('expando_indent')
 					.attr('valign','top')
-					.appendTo(div_row)
+					.appendTo(div_col)
 				;
 				
                 var img;
+				
                 if (_.isObject(child)) {
                     img = $('<img/>')
                     	.attr('src', image_open)
@@ -73,11 +79,6 @@ $.fn.extend({
                     	.appendTo(div_image)
                     ;
                 }
-
-				var div_col = $('<div/>')
-					.addClass('expando_column')
-					.appendTo(div_row)
-				;
 				
                 var div_name = $('<div/>')
 					.addClass('expando_name')
@@ -126,12 +127,24 @@ $.fn.extend({
 				}
 				else {
 					// force a new line
-					var div_expando = $('<div/>')
+					$('<br/>').appendTo(div_value);
+
+					var new_row = $('<div/>')
+						.addClass('expando_column')
+						.appendTo(div_row)
+					;
+					
+					var new_img = $('<div/>')
+						.addClass('expando_indent')
 						.append(
-							$('<br/>')
+							$('<img/>').attr('src', image_blank)
 						)
+						.appendTo(new_row)
+					;
+					
+					var div_expando = $('<div/>')
 						.addClass('opml')
-						.appendTo(div_value)
+						.appendTo(new_row)
 					;
 					
 					// start closed
@@ -149,14 +162,9 @@ $.fn.extend({
 							}
 						}
 					});
-					
-					var div_child = $('<div/>')
-						.addClass('expando_table')
-						.appendTo(div_expando) 
-					;
 
 					// recurse
-					$(div_child).expando(child, ignoreFunctions, traveled);
+					$(div_expando).expando(child, ignoreFunctions, traveled);
             
 				}
 			});
