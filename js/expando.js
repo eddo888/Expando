@@ -1,6 +1,6 @@
 
-//const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
-const image_base = 'image/';
+const image_base = 'https://cdn.jsdelivr.net/gh/eddo888/Expando@master/image/';
+//const image_base = 'image/';
 
 const image_closed   = image_base + 'expandoClosed.png';
 const image_open     = image_base + 'expandoOpen.png';
@@ -122,9 +122,15 @@ $.fn.extend({
 					// force a new line
 					$('<br/>').appendTo(div_value);
 
+					var div_expando = $('<div/>')
+						.addClass('expando_value')
+						.addClass('opml')
+						.appendTo(div_row)
+					;
+
 					var new_row = $('<div/>')
 						.addClass('expando_column')
-						.appendTo(div_row)
+						.appendTo(div_expando)
 					;
 					
 					var new_img = $('<div/>')
@@ -135,11 +141,6 @@ $.fn.extend({
 						.appendTo(new_row)
 					;
 					
-					var div_expando = $('<div/>')
-						.addClass('expando_value')
-						.addClass('opml')
-						.appendTo(new_row)
-					;
 					
 					// start closed
 					$(div_expando).show(); //.hide();
@@ -158,7 +159,7 @@ $.fn.extend({
 					});
 
 					// recurse
-					$(div_expando).expando(child, ignoreFunctions, traveled);
+					$(new_row).expando(child, ignoreFunctions, traveled);
             
 				}
 			});
@@ -184,7 +185,6 @@ $.fn.extend({
 						
 						var name = $(col).children('div.expando_name').children('span').text();
 						var value = $(col).children('div.expando_value').children('input').val();
-						var opml = $(col).children('div.opml');
 
 						if (name && name.length > 0) {
 							previous = name;
@@ -198,19 +198,23 @@ $.fn.extend({
 							}
 							
 							if (value && value.length > 0) {
-								//console.log(name, ':', value);
+								console.log(name, ':', value);
 								dict[name] = value
 							}
 							return;
 						}
+					});
+
+					$(row).children('div.opml').each(function(i4, opml) {
+						//console.log(i4, opml);
 						
-						//console.log('value?',value);
-												
-						if (opml && previous && previous.length > 0) {
-							var d = $(opml).collapso(tipe);
-							//console.log(previous, d);
+						$(opml).children('div.expando_column').each(function(i5, col) {
+							//console.log(i5, col);
+
+							var d = $(col).collapso(tipe);
+							console.log(previous, d);
 							dict[previous] = d;
-						}
+						});
 					});
 				});
 			});
