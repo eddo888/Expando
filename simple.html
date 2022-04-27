@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Expando</title>
+	<meta charset="utf-8"/>
+	<link href="https://cdn.jsdelivr.net/gh/eddo888/Expando@master/css/expando.css" rel="stylesheet" type="text/css"/>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
+	<script src="https://cdn.jsdelivr.net/gh/eddo888/Expando@master/js/expando.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+
+var obj = {
+    "?": "xml version=\"1.0\" encoding=\"UTF-8\"",
+    "eddo:root": {
+        "@xmlns:eddo": "ns:eddo",
+        "child1": "text",
+        "!": "-- you cant see me --",
+        "child": {
+            "grandchild": [
+                "one",
+                "two",
+                "gggbffg"
+            ]
+        },
+        "child3": {
+            "@a2": "v2",
+            "#": "complex text"
+        }
+    }
+};
+
+$(document).ready(function() {
+	
+	$('#expando').expando(obj);
+	
+	$('#collapso').click(function() {
+		console.log($('#expando').collapso());
+	});
+	
+});
+	  
+    </script>
+	
+  </head>
+  <body>
+  	<button id="collapso">click me</button>
+	<div id="expando" height="100%"></div>
+  </body>
+	
+</html>
